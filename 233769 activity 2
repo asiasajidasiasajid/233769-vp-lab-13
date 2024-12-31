@@ -1,0 +1,40 @@
+namespace ServerManagement.Models
+{
+    public static class CitiesRepository
+    {
+        private static List<string> cities = new List<string>()
+        {
+            "Toronto",
+            "Montreal",
+            "Ottawa",
+            "Calgary",
+            "Halifax"
+        };
+
+        public static List<string> GetCities() => cities;
+    }
+}
+
+html:
+@page "/servers"
+
+<h3>Servers</h3>
+<br />
+<br />
+
+@foreach (var city in cities)
+{
+    <button type="button" class="btn btn-primary">@city</button>
+    <text>&nbsp;</text>
+
+    @foreach (var server in servers)
+    {
+        <li>
+            <span style="color:@((server.IsOnline? "green": "red"))">
+                @server.Name in @server.City is @(server.IsOnline? "online": "offline")
+            </span>
+
+            <a href="/servers/edit/@server.Id" class="btn btn-info">Edit</a> 
+        </li>
+    }
+}
